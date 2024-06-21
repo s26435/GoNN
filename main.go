@@ -11,52 +11,6 @@ import (
 	"strconv"
 )
 
-type (
-	Data struct {
-		patientID uint16
-		//demographic details
-		age       uint8 // 60 - 90 years
-		gender    bool  // tru = female, false = male
-		ethnicity uint8 // 0: caucasian, 1:afroamerican, 2:asian, 3: other
-		education uint8 // 0:none, 1:high school, 2: belchelor's 3: higher
-		// lifestyle factors
-		BMI                float64 // 15 -40
-		smoking            bool
-		alcoholConsumption float64 // weekly alcohol consumption
-		physicalActivity   float64 // weekly physical activity 0-10
-		dietQuality        float64 // 0 - 10	(grade)
-		sleepQuality       float64 // 4 - 10
-		//medical history
-		familyAlzheimers bool // alzhaimers in family history
-		cardioDisease    bool
-		diabetes         bool
-		depression       bool
-		headInjury       bool
-		hypertension     bool
-		//clinical measurements
-		systolicBP       uint
-		diastolicBP      uint
-		cholesterolTotal float64
-		cholesterolLDL   float64
-		cholesterolHDL   float64
-		triglycerides    float64
-		//cognitive and functional assessments
-		MMSE             float64 //mini-mental state examination score 0 - 30
-		funcAssessment   float64 // 0-10
-		memoryComplaints bool
-		behavioralProb   bool
-		ADL              float64 //activities of daily living score 0 - 10
-		//symptoms
-		confusion          bool
-		disorientation     bool
-		personalityChanges bool
-		difficultyTask     bool
-		forgetfulness      bool
-		//DIAGNOSIS
-		diagnosis bool
-	}
-)
-
 type DataFrame struct {
 	patientID []uint16
 	//demographic details
@@ -349,17 +303,12 @@ func averageLoss(lossTable []float64) float64 {
 	for i := range lossTable {
 		result += lossTable[i]
 	}
-	result = result / float64(len(lossTable))
-	var varx float64
-	for i := range lossTable {
-		varx = math.Pow(lossTable[i]-result, 2)
-	}
-	return math.Sqrt(varx / float64(len(lossTable)))
+	return result / float64(len(lossTable))
 }
 
 func main() {
 	inputSize := 31
-	hiddenSize := 10
+	hiddenSize := 31
 	outputSize := 1
 	learningRate := 0.1
 	epochs := 10
